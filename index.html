@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ride-Sharing App – Week 3 System Design Diagrams</title>
+<style>
+  :root {
+    --navy: #17324d;
+    --blue: #2f6f9f;
+    --light-blue: #eaf3f9;
+    --teal: #267b78;
+    --light-teal: #e8f5f3;
+    --gold: #b87920;
+    --light-gold: #fff5e5;
+    --purple: #68558d;
+    --light-purple: #f1eef8;
+    --ink: #243342;
+    --muted: #5e6d7b;
+    --line: #7890a3;
+    --paper: #ffffff;
+    --bg: #f3f6f8;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    background: linear-gradient(135deg, #17324d, #2f6f9f);
+    color: white;
+    padding: 42px 22px 34px;
+    text-align: center;
+  }
+  header h1 { margin: 0 0 8px; font-size: clamp(1.7rem, 4vw, 2.5rem); }
+  header p { margin: 0; color: #e4eef5; font-size: 1rem; }
+  main { width: min(1200px, calc(100% - 32px)); margin: 28px auto 56px; }
+  .intro, .diagram-section {
+    background: var(--paper);
+    border: 1px solid #dce4ea;
+    border-radius: 14px;
+    box-shadow: 0 5px 18px rgba(28, 51, 71, .06);
+    margin-bottom: 24px;
+    padding: 24px;
+  }
+  h2 { color: var(--navy); margin: 0 0 8px; font-size: 1.45rem; }
+  h3 { color: var(--navy); margin: 22px 0 8px; font-size: 1.05rem; }
+  p { margin: 8px 0 12px; }
+  .subtitle { color: var(--muted); margin-top: 0; }
+  .diagram-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e1e8ed;
+    border-radius: 10px;
+    background: #fbfdfe;
+    padding: 14px;
+    margin-top: 16px;
+  }
+  svg { display: block; width: 100%; height: auto; min-width: 760px; }
+  .node { stroke-width: 2; rx: 10; }
+  .external { fill: var(--light-blue); stroke: var(--blue); }
+  .service { fill: var(--light-teal); stroke: var(--teal); }
+  .process { fill: var(--light-purple); stroke: var(--purple); }
+  .data { fill: var(--light-gold); stroke: var(--gold); }
+  .central { fill: #e8eef5; stroke: var(--navy); stroke-width: 2.5; }
+  .node-text { fill: var(--ink); font-size: 15px; font-weight: 600; text-anchor: middle; dominant-baseline: middle; }
+  .small-text { fill: var(--muted); font-size: 12px; text-anchor: middle; }
+  .edge { fill: none; stroke: var(--line); stroke-width: 2; marker-end: url(#arrow); }
+  .edge-label { fill: #415568; font-size: 11.5px; text-anchor: middle; }
+  .legend { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 14px 0 0; color: var(--muted); font-size: .9rem; }
+  .legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .swatch { width: 13px; height: 13px; border-radius: 3px; display: inline-block; border: 1px solid #9aaab6; }
+  .blue { background: var(--light-blue); border-color: var(--blue); }
+  .teal { background: var(--light-teal); border-color: var(--teal); }
+  .purple { background: var(--light-purple); border-color: var(--purple); }
+  .gold { background: var(--light-gold); border-color: var(--gold); }
+  .note {
+    background: #f6f9fb;
+    border-left: 4px solid var(--blue);
+    padding: 12px 15px;
+    border-radius: 5px;
+    color: #405465;
+    margin-top: 16px;
+  }
+  footer { text-align: center; color: var(--muted); padding: 0 16px 28px; font-size: .85rem; }
+  @media print {
+    body { background: white; }
+    header { background: var(--navy) !important; print-color-adjust: exact; }
+    .intro, .diagram-section { box-shadow: none; break-inside: avoid; }
+    .diagram-wrap { overflow: visible; }
+    svg { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Ride-Sharing App</h1>
+  <p>Week 3 – High-Level Design Diagrams | Group 3</p>
+</header>
+
+<main>
+  <section class="intro">
+    <h2>System Design Overview</h2>
+    <p>This document builds on the Week 1 stakeholder analysis and the Week 2 requirements for the Ride-Sharing App. It includes a high-level architecture diagram, an application-level data flow diagram, and a Level 1 data flow diagram.</p>
+    <p>The design reflects the needs of passengers, drivers, and administrators, with attention to upfront fare transparency, trip tracking, secure payments, reliability, accessibility, and data privacy.</p>
+    <div class="legend">
+      <span><i class="swatch blue"></i> External users and services</span>
+      <span><i class="swatch teal"></i> Application services</span>
+      <span><i class="swatch purple"></i> Application processes</span>
+      <span><i class="swatch gold"></i> Data storage</span>
+    </div>
+  </section>
+
+  <section class="diagram-section">
+    <h2>1. High-Level Architecture Diagram</h2>
+    <p class="subtitle">Shows the major parts of the application and how they connect.</p>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1100 650" role="img" aria-label="High-level architecture diagram for the ride-sharing app">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7890a3"/></marker>
+        </defs>
+        <rect class="node external" x="55" y="35" width="230" height="62"/>
+        <text class="node-text" x="170" y="66">Passenger Mobile App</text>
+        <rect class="node external" x="435" y="35" width="230" height="62"/>
+        <text class="node-text" x="550" y="66">Driver Mobile App</text>
+        <rect class="node external" x="815" y="35" width="230" height="62"/>
+        <text class="node-text" x="930" y="66">Administrator Interface</text>
+
+        <rect class="node central" x="300" y="145" width="500" height="72"/>
+        <text class="node-text" x="550" y="174">Application Backend / API</text>
+        <text class="small-text" x="550" y="197">Connects the interfaces to application functions</text>
+
+        <path class="edge" d="M170 97 V125 H420 V145"/>
+        <path class="edge" d="M550 97 V145"/>
+        <path class="edge" d="M930 97 V125 H680 V145"/>
+
+        <rect class="node service" x="35" y="285" width="190" height="66"/>
+        <text class="node-text" x="130" y="318">Account &amp;</text><text class="node-text" x="130" y="337">Authentication</text>
+        <rect class="node service" x="260" y="285" width="190" height="66"/>
+        <text class="node-text" x="355" y="318">Ride</text><text class="node-text" x="355" y="337">Management</text>
+        <rect class="node service" x="485" y="285" width="190" height="66"/>
+        <text class="node-text" x="580" y="318">Fare</text><text class="node-text" x="580" y="337">Calculation</text>
+        <rect class="node service" x="710" y="285" width="170" height="66"/>
+        <text class="node-text" x="795" y="318">Trip</text><text class="node-text" x="795" y="337">Tracking</text>
+        <rect class="node service" x="915" y="285" width="160" height="66"/>
+        <text class="node-text" x="995" y="318">Payment</text><text class="node-text" x="995" y="337">Management</text>
+
+        <path class="edge" d="M550 217 V250 H130 V285"/>
+        <path class="edge" d="M550 217 V260 H355 V285"/>
+        <path class="edge" d="M550 217 V270 H580 V285"/>
+        <path class="edge" d="M550 217 V270 H795 V285"/>
+        <path class="edge" d="M550 217 V250 H995 V285"/>
+
+        <rect class="node service" x="260" y="405" width="230" height="65"/>
+        <text class="node-text" x="375" y="437">Ratings &amp; Customer Support</text>
+        <rect class="node service" x="610" y="405" width="230" height="65"/>
+        <text class="node-text" x="725" y="437">Notifications</text>
+
+        <path class="edge" d="M355 351 V380 H375 V405"/>
+        <path class="edge" d="M795 351 V380 H725 V405"/>
+
+        <rect class="node data" x="250" y="525" width="600" height="70"/>
+        <text class="node-text" x="550" y="554">Ride-Sharing Database</text>
+        <text class="small-text" x="550" y="577">User accounts • ride records • fare details • trip history • payment records</text>
+
+        <path class="edge" d="M130 351 V490 H350 V525"/>
+        <path class="edge" d="M355 351 V525"/>
+        <path class="edge" d="M580 351 V490 H550 V525"/>
+        <path class="edge" d="M795 351 V490 H750 V525"/>
+        <path class="edge" d="M995 351 V490 H750 V525"/>
+        <path class="edge" d="M375 470 V500 H420 V525"/>
+
+        <rect class="node external" x="35" y="405" width="165" height="65"/>
+        <text class="node-text" x="117" y="432">Mapping &amp; GPS</text><text class="small-text" x="117" y="451">External service</text>
+        <rect class="node external" x="900" y="405" width="175" height="65"/>
+        <text class="node-text" x="987" y="432">Payment Processor</text><text class="small-text" x="987" y="451">External service</text>
+        <path class="edge" d="M580 351 V380 H117 V405"/>
+        <path class="edge" d="M795 351 V390 H117 V405"/>
+        <path class="edge" d="M995 351 V405"/>
+      </svg>
+    </div>
+    <p class="note"><strong>How it works:</strong> Passenger, driver, and administrator interfaces connect to the backend. The backend coordinates accounts, rides, fare calculations, tracking, payments, support, and notifications. The application also communicates with external mapping/GPS and payment services.</p>
+  </section>
+
+  <section class="diagram-section">
+    <h2>2. Data Flow Diagram – Application Overview</h2>
+    <p class="subtitle">Shows the information exchanged between the app and its external entities.</p>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1100 570" role="img" aria-label="Application overview data flow diagram">
+        <defs>
+          <marker id="arrow2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7890a3"/></marker>
+        </defs>
+        <rect class="node external" x="45" y="55" width="190" height="62"/>
+        <text class="node-text" x="140" y="86">Passenger</text>
+        <rect class="node external" x="45" y="215" width="190" height="62"/>
+        <text class="node-text" x="140" y="246">Driver</text>
+        <rect class="node external" x="45" y="375" width="190" height="62"/>
+        <text class="node-text" x="140" y="406">System Administrator</text>
+
+        <rect class="node central" x="390" y="190" width="320" height="115" rx="18"/>
+        <text class="node-text" x="550" y="235">Ride-Sharing App</text>
+        <text class="small-text" x="550" y="261">Main application system</text>
+
+        <rect class="node external" x="865" y="75" width="190" height="62"/>
+        <text class="node-text" x="960" y="106">Mapping &amp; GPS</text>
+        <rect class="node external" x="865" y="225" width="190" height="62"/>
+        <text class="node-text" x="960" y="256">Payment Processing</text>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M235 70 H315 V215 H390"/>
+        <text class="edge-label" x="310" y="58">Account details, ride requests,</text>
+        <text class="edge-label" x="310" y="72">locations and payment details</text>
+        <path class="edge" marker-end="url(#arrow2)" d="M390 280 H315 V115 H235"/>
+        <text class="edge-label" x="310" y="300">Fare estimates, trip updates, receipts</text>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M235 230 H390"/>
+        <text class="edge-label" x="310" y="218">Availability, acceptance, location</text>
+        <path class="edge" marker-end="url(#arrow2)" d="M390 260 H340 V300 H235"/>
+        <text class="edge-label" x="310" y="317">Ride confirmations and trip details</text>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M235 405 H330 V290 H390"/>
+        <text class="edge-label" x="305" y="424">Account and support requests</text>
+        <path class="edge" marker-end="url(#arrow2)" d="M390 205 H330 V390 H235"/>
+        <text class="edge-label" x="310" y="380">Reports and trip records</text>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M710 215 H790 V106 H865"/>
+        <text class="edge-label" x="790" y="65">Route and location requests</text>
+        <path class="edge" marker-end="url(#arrow2)" d="M865 125 H820 V245 H710"/>
+        <text class="edge-label" x="830" y="153">Routes, distance, travel times</text>
+
+        <path class="edge" marker-end="url(#arrow2)" d="M710 260 H865"/>
+        <text class="edge-label" x="790" y="247">Payment authorization</text>
+        <path class="edge" marker-end="url(#arrow2)" d="M865 280 H790 V290 H710"/>
+        <text class="edge-label" x="790" y="310">Payment confirmation or failure</text>
+      </svg>
+    </div>
+    <p class="note"><strong>How it works:</strong> Passengers send account details, ride requests, locations, and payment information to the app. Drivers send availability and trip updates. The app exchanges route information with the mapping service and payment requests with the payment processor.</p>
+  </section>
+
+  <section class="diagram-section">
+    <h2>3. Data Flow Diagram – Level 1</h2>
+    <p class="subtitle">Breaks the application into five main processes and shows the related data stores.</p>
+    <div class="diagram-wrap">
+      <svg viewBox="0 0 1100 790" role="img" aria-label="Level 1 data flow diagram for the ride-sharing app">
+        <defs>
+          <marker id="arrow3" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#7890a3"/></marker>
+        </defs>
+        <rect class="node external" x="35" y="70" width="170" height="58"/>
+        <text class="node-text" x="120" y="99">Passenger</text>
+        <rect class="node external" x="895" y="190" width="170" height="58"/>
+        <text class="node-text" x="980" y="219">Driver</text>
+        <rect class="node external" x="895" y="430" width="170" height="58"/>
+        <text class="node-text" x="980" y="459">Payment Service</text>
+        <rect class="node external" x="35" y="430" width="170" height="58"/>
+        <text class="node-text" x="120" y="459">Mapping &amp; GPS</text>
+
+        <rect class="node process" x="300" y="45" width="250" height="82"/>
+        <text class="node-text" x="425" y="78">1.0 Manage Accounts</text>
+        <text class="small-text" x="425" y="101">Register, log in, manage profile</text>
+
+        <rect class="node process" x="300" y="190" width="250" height="92"/>
+        <text class="node-text" x="425" y="225">2.0 Request Ride &amp;</text>
+        <text class="node-text" x="425" y="247">Calculate Fare</text>
+
+        <rect class="node process" x="590" y="190" width="250" height="92"/>
+        <text class="node-text" x="715" y="225">3.0 Match Driver &amp;</text>
+        <text class="node-text" x="715" y="247">Track Trip</text>
+
+        <rect class="node process" x="590" y="405" width="250" height="92"/>
+        <text class="node-text" x="715" y="440">4.0 Process Payment</text>
+        <text class="small-text" x="715" y="465">Authorize and record transaction</text>
+
+        <rect class="node process" x="300" y="590" width="250" height="92"/>
+        <text class="node-text" x="425" y="625">5.0 Manage Ratings</text>
+        <text class="node-text" x="425" y="647">&amp; Support</text>
+
+        <rect class="node data" x="35" y="190" width="190" height="62"/>
+        <text class="node-text" x="130" y="221">D1: User Records</text>
+        <rect class="node data" x="35" y="590" width="190" height="62"/>
+        <text class="node-text" x="130" y="621">D2: Ride / Trip Records</text>
+        <rect class="node data" x="895" y="590" width="170" height="62"/>
+        <text class="node-text" x="980" y="621">D3: Payment Records</text>
+
+        <path class="edge" marker-end="url(#arrow3)" d="M205 85 H300"/>
+        <text class="edge-label" x="250" y="72">Registration / login</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M300 112 H250 V150 H120 V128"/>
+        <text class="edge-label" x="185" y="143">Account confirmation</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M300 85 H250 V190 H225"/>
+        <path class="edge" marker-end="url(#arrow3)" d="M225 220 H300"/>
+        <text class="edge-label" x="260" y="207">Account data</text>
+
+        <path class="edge" marker-end="url(#arrow3)" d="M205 105 H255 V225 H300"/>
+        <text class="edge-label" x="258" y="180">Pickup / destination</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M300 260 H250 V310 H120 V128"/>
+        <text class="edge-label" x="185" y="326">Fare estimate / breakdown</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M205 460 H255 V275 H300"/>
+        <text class="edge-label" x="250" y="370">Route / distance data</text>
+
+        <path class="edge" marker-end="url(#arrow3)" d="M550 235 H590"/>
+        <text class="edge-label" x="570" y="220">Confirmed ride request</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M840 235 H895"/>
+        <text class="edge-label" x="870" y="220">Ride details</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M895 245 H860 V285 H715 V282"/>
+        <text class="edge-label" x="850" y="300">Accept / decline, location</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M590 270 H565 V350 H120 V128"/>
+        <text class="edge-label" x="360" y="365">Driver confirmation / trip updates</text>
+
+        <path class="edge" marker-end="url(#arrow3)" d="M715 282 V405"/>
+        <text class="edge-label" x="765" y="345">Completed trip / agreed fare</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M840 450 H895"/>
+        <text class="edge-label" x="870" y="435">Payment authorization</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M895 475 H850 V485 H840"/>
+        <text class="edge-label" x="870" y="505">Payment result</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M715 497 V550 H980 V590"/>
+        <text class="edge-label" x="850" y="540">Transaction details</text>
+
+        <path class="edge" marker-end="url(#arrow3)" d="M425 282 V550 H425 V590"/>
+        <text class="edge-label" x="480" y="570">Trip and fare details</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M300 635 H225"/>
+        <text class="edge-label" x="262" y="620">Ratings / support records</text>
+        <path class="edge" marker-end="url(#arrow3)" d="M550 635 H700 V680 H895"/>
+        <text class="edge-label" x="720" y="665">Support / issue information</text>
+      </svg>
+    </div>
+    <p class="note"><strong>How it works:</strong> The Level 1 diagram separates the main functions into account management, ride requests and fare calculation, driver matching and trip tracking, payment processing, and ratings/support. It also identifies user, ride/trip, and payment records used by the system.</p>
+  </section>
+
+  <section class="intro">
+    <h2>Design Notes</h2>
+    <ul>
+      <li>The passenger should see the fare breakdown before confirming a ride.</li>
+      <li>The agreed fare stays fixed unless the passenger changes the destination or adds a stop and approves the revised price.</li>
+      <li>Drivers can accept or decline requests and provide trip status and location updates.</li>
+      <li>Payment failures should be communicated to passengers, with an option to retry or contact support.</li>
+      <li>Security, privacy, accessibility, reliability, and performance should guide the design.</li>
+    </ul>
+    <p class="note">These diagrams are initial Week 3 design artifacts. The group can revise them after reviewing the requirements and receiving feedback.</p>
+  </section>
+</main>
+
+<footer>Group 3 • CSC400 – Systems Analysis and Design • Week 3</footer>
+</body>
+</html>

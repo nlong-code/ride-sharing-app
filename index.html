@@ -294,7 +294,12 @@ footer {
 
 <h2>1. System Context Diagram</h2>
 
-<p>The System Context Diagram shows how the ride sharing application will interact with external users and services. Users of the application are able to make ride Requests. The ride Requests are made by the riders and accepted by the drivers. In addition to making ride Requests and providing transportation, the ride sharing application will be interacting with other systems such as payment services, map services and notification services.
+<p>
+The system context diagram illustrates how the ride-sharing application
+interacts with external users and services. Passengers use the application
+to request rides, while drivers receive ride requests and provide
+transportation. The system also communicates with payment services,
+mapping services, and notification services.
 </p>
 
 <div class="diagram">
@@ -355,7 +360,7 @@ footer {
 <h3>External Entities</h3>
 
 <ul>
-<li><strong>Passenger:</strong> Passenger: Requests rides, enters pickup and destination information, and makes payments.</li>
+<li><strong>Passenger:</strong> Requests rides, enters pickup and destination information, and makes payments.</li>
 <li><strong>Driver:</strong> Receives ride requests, accepts trips, and updates ride status.</li>
 <li><strong>Payment Service:</strong> Processes passenger payments and returns transaction confirmations.</li>
 <li><strong>Map Service:</strong> Provides location information, directions, and estimated travel times.</li>
@@ -370,7 +375,11 @@ footer {
 
 <h2>2. High-Level Architecture Diagram</h2>
 
-<p>The High Level Architecture is intended to show the primary elements of the Ride Sharing Application System and how those elements interact with each other. This architecture will consist of a mobile application, an application server, a data base and use some third party services for managing transactions and ride requests.
+<p>
+The high-level architecture shows the major components of the
+ride-sharing application and how they communicate. The system
+uses a mobile application, an application server, a database,
+and external services to manage ride requests and transactions.
 </p>
 
 <div class="diagram">
@@ -385,31 +394,31 @@ footer {
 
 <rect x="65" y="30" width="300" height="75" rx="10" class="node"></rect>
 <text x="215" y="62">Passenger Mobile Application</text>
-<text x="215" y="83">Ride Requests/Payments</text>
+<text x="215" y="83">Ride Requests and Payments</text>
 
 <rect x="485" y="30" width="300" height="75" rx="10" class="node"></rect>
 <text x="635" y="62">Driver Mobile Application</text>
-<text x="635" y="83">Ride Acceptance/Updates</text>
+<text x="635" y="83">Ride Acceptance and Updates</text>
 
 <rect x="245" y="160" width="360" height="80" rx="10" class="process"></rect>
-<text x="425" y="195">App Server / API</text>
-<text x="425" y="216">Processes App Requests</text>
+<text x="425" y="195">Application Server / API</text>
+<text x="425" y="216">Processes Application Requests</text>
 
 <rect x="40" y="310" width="220" height="80" rx="10" class="node"></rect>
-<text x="150" y="345">User/Management</text>
+<text x="150" y="345">User Management</text>
 <text x="150" y="365">Authentication</text>
 
 <rect x="315" y="310" width="220" height="80" rx="10" class="node"></rect>
-<text x="425" y="345">Ride/Management</text>
-<text x="425" y="365">Matching/Tracking</text>
+<text x="425" y="345">Ride Management</text>
+<text x="425" y="365">Matching and Tracking</text>
 
 <rect x="590" y="310" width="220" height="80" rx="10" class="node"></rect>
 <text x="700" y="345">Payment Management</text>
-<text x="700" y="365">Transaction/ Processing</text>
+<text x="700" y="365">Transaction Processing</text>
 
 <rect x="245" y="460" width="360" height="70" rx="10" class="external"></rect>
-<text x="425" y="490">Central Application (Database</text>
-<text x="425" y="510">Users/Drivers/ Rides and Payments</text>
+<text x="425" y="490">Central Application Database</text>
+<text x="425" y="510">Users, Drivers, Rides and Payments</text>
 
 <path d="M215 105 L350 160" class="arrow"></path>
 <path d="M635 105 L500 160" class="arrow"></path>
@@ -435,15 +444,15 @@ footer {
 </tr>
 <tr>
 <td>Passenger Application</td>
-<td>lets riders register, request rides, track drivers, and pay.</td>
+<td>Allows passengers to register, request rides, track drivers, and pay.</td>
 </tr>
 <tr>
 <td>Driver Application</td>
-<td> drivers are able to manage availability, accept rides, and complete trips.</td>
+<td>Allows drivers to manage availability, accept rides, and complete trips.</td>
 </tr>
 <tr>
 <td>Application Server</td>
-<td>app that processes requests and connects the applications to system services.</td>
+<td>Processes requests and connects the applications to system services.</td>
 </tr>
 <tr>
 <td>User Management</td>
@@ -475,9 +484,9 @@ footer {
 <h3>Context-Level Data Flow Diagram</h3>
 
 <p>
-Context-level DFD shows an overview of the  ride-sharing
-system as a process. It also shows how passengers and drivers exchange
-information within the app.
+The context-level DFD provides an overview of the entire ride-sharing
+system as one process. It shows how passengers and drivers exchange
+information with the application.
 </p>
 
 <div class="diagram">
@@ -517,11 +526,11 @@ information within the app.
 
 </div>
 
-<h3>Level 1 Data-Flow Diagram</h3>
+<h3>Level 1 Data Flow Diagram</h3>
 
 <p>
-The Level 1 DFD breaks the process into smaller processes within the ride-Sharing system.
-It shows how information moves through the registration process, ride
+The Level 1 DFD breaks the ride-sharing system into smaller processes.
+This Model shows how information travels through the process of registration, ride
 requests, driver matching, payment processing, and ride completion.
 </p>
 
@@ -597,18 +606,18 @@ requests, driver matching, payment processing, and ride completion.
 <h3>Level 1 Process Descriptions</h3>
 
 <ol>
-<li><strong>User Registration:</strong> Collects and verifies passenger and driver account information.</li>
-<li><strong>Request a Ride:</strong> Receives the pickup location and destination from the passenger.</li>
-<li><strong>Match Driver:</strong> Identifies an available driver and sends a ride request.</li>
-<li><strong>Process Payment:</strong> Calculates the fare and processes the passenger's payment.</li>
-<li><strong>Complete Ride:</strong> Updates the ride status and stores the completed trip information.</li>
+<li><strong>User Registration-</strong> Collects/verifies passenger and driver account information.</li>
+<li><strong>Request a Ride-</strong> Receives pickup location and destination from the passenger.</li>
+<li><strong>Match Driver-</strong> Shows available drivers and sends a ride request.</li>
+<li><strong>Process Payment-</strong> Calculates the fare and processes the passenger's payment.</li>
+<li><strong>Complete Ride-</strong> Sows the current status of the ride and stores the completed trip information.</li>
 </ol>
 
-<h3>Data Stored</h3>
+<h3>Data Store</h3>
 
 <p>
-<strong>D1 - Application Database:</strong> keeps user profiles stored for future reference,
-drivers availability, ride requests, details of rides, and payment records.
+<strong>D1 - Application Database:</strong> Logs and stores user profiles,
+driver availability, ride requests, trip details, and payment records.
 </p>
 
 </section>
@@ -621,9 +630,10 @@ drivers availability, ride requests, details of rides, and payment records.
 <h2>4. User Interface Mockups</h2>
 
 <p>
-These mockups shows and example how riders see the Ride-Share app on their cell phones. The passenger interface focuses on requesting
+The following mockups show how the ride-sharing application could
+look on a mobile phone. The passenger interface focuses on requesting
 and tracking rides. The driver interface focuses on accepting rides,
-viewing trip information, and updating ride info.
+viewing trip information, and updating ride status.
 </p>
 
 <!-- PASSENGER PHONE -->
@@ -670,8 +680,8 @@ available ride information, request a ride, and track the driver.
 
 <div class="info-card">
 <strong>Standard Ride</strong>
-<p>Estimated arrival: 3 minutes</p>
-<p>Estimated fare: $30.00</p>
+<p>Estimated arrival: 5 minutes</p>
+<p>Estimated fare: $15.00</p>
 </div>
 
 <div class="info-card">
@@ -684,7 +694,7 @@ Request Ride
 </button>
 
 <div class="navbar">
-<span>🏠 Residence</span>
+<span>🏠 Home</span>
 <span>🚗 Rides</span>
 <span>💳 Payment</span>
 <span>👤 Profile</span>
@@ -699,7 +709,7 @@ Request Ride
 <!-- PASSENGER TRACKING PHONE -->
 
 <div>
-<div class="phone-title">Passenger - Driver Locater</div>
+<div class="phone-title">Passenger - Track Driver</div>
 
 <div class="phone">
 
@@ -708,13 +718,13 @@ Request Ride
 <div class="screen">
 
 <div class="status">
-<span>9:45</span>
+<span>9:41</span>
 <span>5G ● 100%</span>
 </div>
 
 <div class="app-header">
-<h3>Ride Confirmation!</h3>
-<small>Your driver will soon arrive</small>
+<h3>Ride Confirmed!</h3>
+<small>Your driver is on the way</small>
 </div>
 
 <div class="map">
@@ -723,18 +733,18 @@ Request Ride
 
 <div class="app-content">
 
-<h4>Driver Info</h4>
+<h4>Driver Information</h4>
 
 <div class="info-card">
-<strong>Driver: Oliver Johns</strong>
-<p>Vehicle: Nissan Maxima</p>
-<p>Color: Grey</p>
-<p>License:  A20934</p>
+<strong>Driver: Alex Johnson</strong>
+<p>Vehicle: Toyota Camry</p>
+<p>Color: Silver</p>
+<p>License: ABC 1234</p>
 <p>Rating: ⭐ 4.9</p>
 </div>
 
 <div class="info-card">
-<strong>Pickup Info</strong>
+<strong>Pickup Information</strong>
 <p>Driver arriving in approximately 5 minutes.</p>
 </div>
 
@@ -743,7 +753,7 @@ Contact Driver
 </button>
 
 <button class="app-button green-button">
-Trip Details
+View Trip Details
 </button>
 
 <div class="navbar">
@@ -766,7 +776,8 @@ Trip Details
 <h3>Driver Mobile Application</h3>
 
 <p>
-Drivers manage their availability through driver Interface, its also allows them to receive ride requests, review trip information, and update the
+The driver interface allows drivers to manage their availability,
+receive ride requests, review trip information, and update the
 status of each ride.
 </p>
 
@@ -802,16 +813,16 @@ status of each ride.
 <h4>New Ride Request</h4>
 
 <div class="info-card">
-<strong>Passenger: Rodney Baynard</strong>
-<p>Pickup: Loyd St</p>
-<p>Destination: Christiana Mall</p>
-<p>Distance: 5.0 miles</p>
-<p>Estimated Fare: $26.00</p>
+<strong>Passenger: Taylor Smith</strong>
+<p>Pickup: Main Street</p>
+<p>Destination: Downtown</p>
+<p>Distance: 4.5 miles</p>
+<p>Estimated Fare: $15.00</p>
 </div>
 
 <div class="info-card">
-<strong>Ride Request Info</strong>
-<p>Waiting for response from driver</p>
+<strong>Ride Request Status</strong>
+<p>Waiting for driver response</p>
 </div>
 
 <button class="app-button green-button">
@@ -823,7 +834,7 @@ Decline Ride
 </button>
 
 <div class="navbar">
-<span>🏠 Residence</span>
+<span>🏠 Home</span>
 <span>📋 Requests</span>
 <span>💰 Earnings</span>
 <span>👤 Profile</span>
@@ -862,18 +873,18 @@ Decline Ride
 
 <div class="app-content">
 
-<h4>Trip Info</h4>
+<h4>Trip Information</h4>
 
 <div class="info-card">
-<strong>Passenger: Henrietta Johns</strong>
-<p>Pickup: Peach St</p>
-<p>Destination: Farmers Market</p>
-<p>Estimated Fare: $17.00</p>
+<strong>Passenger: Taylor Smith</strong>
+<p>Pickup: Main Street</p>
+<p>Destination: Downtown</p>
+<p>Estimated Fare: $15.00</p>
 </div>
 
 <div class="info-card">
 <strong>Trip Status</strong>
-<p>Driver is transporting passenger.</p>
+<p>Driver is currently transporting passenger.</p>
 </div>
 
 <button class="app-button">
@@ -881,11 +892,11 @@ Arrived at Pickup
 </button>
 
 <button class="app-button green-button">
-Completed Ride
+Complete Ride
 </button>
 
 <div class="navbar">
-<span>🏠 Residence</span>
+<span>🏠 Home</span>
 <span>📋 Requests</span>
 <span>💰 Earnings</span>
 <span>👤 Profile</span>
@@ -906,42 +917,41 @@ Completed Ride
 <th>Driver Features</th>
 </tr>
 <tr>
-<td>Register/login</td>
+<td>Register and log in</td>
 <td>Register and log in</td>
 </tr>
 <tr>
-<td>Login pickup and destination</td>
-<td>Manage driver slots</td>
+<td>Enter pickup and destination</td>
+<td>Manage driver availability</td>
 </tr>
 <tr>
-<td>Send Ride Request</td>
+<td>Request a ride</td>
 <td>Receive ride requests</td>
 </tr>
 <tr>
-<td>See driver location</td>
-<td>Accept/decline rides</td>
+<td>Track driver location</td>
+<td>Accept or decline rides</td>
 </tr>
 <tr>
-<td>See estimated fare</td>
-<td>View passenger/ trip details</td>
+<td>View estimated fare</td>
+<td>View passenger and trip details</td>
 </tr>
 <tr>
-<td>Send payments</td>
-<td>Update ride info</td>
+<td>Make payments</td>
+<td>Update ride status</td>
 </tr>
 <tr>
 <td>View ride history</td>
-<td>See earnings and completed rides</td>
+<td>View earnings and completed rides</td>
 </tr>
 </tbody></table>
 
 </section>
 
 <footer>
-<p>Ride-Sharing Application/ Week 3 System Analysis and Design</p>
+<p>Ride-Sharing Application | Week 3 System Analysis and Design</p>
 <p>System Analysts Consulting Corp. | Group 3</p>
 </footer>
-
 
 
 
